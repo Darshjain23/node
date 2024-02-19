@@ -1,21 +1,27 @@
-// var a = "darsh1"
-// console.log(a)
-
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import express from 'express'
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express()
+
+app.use(express.static(__dirname+'\\public'))
+
 app.get('/',function(req,res){
     // res.write("<h1>Hello world!</h1>")
-    res.sendFile('C:\\Users\\Admin\\Downloads\\project1\\views\\index.html')
+    res.sendFile(__dirname+'\\views\\index.html')
 })
 
 app.get('/product',function(req,res){
     // res.write("<h1>your products are here</h1>")
-    res.sendFile('C:\\Users\\Admin\\Downloads\\project1\\views\\product.html')
+    res.sendFile(__dirname+'\\views\\product.html')
 })
 
 app.get('/contact',function(req,res){
     // res.write("<h1>contact here!</h1>")
-    res.sendFile('C:\\Users\\Admin\\Downloads\\project1\\views\\contact.html')
+    res.sendFile(__dirname+'\\views\\contact.html')
 })
 
 
