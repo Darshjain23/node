@@ -26,13 +26,7 @@ var transporter = nodemailer.createTransport({
     }
   });
   
-  var mailOptions = {
-    from: 'darsh10@somaiya.edu',
-    to: 'madhurima.v@somaiya.edu',
-    subject: 'Sending Email using Node.js',
-    text: 'Thank you for contacting us',
-    html: '<h1>Welcome</h1><p>Please dont text us again</p>'
-  };
+
   
 
 app.get('/',function(req,res){
@@ -51,15 +45,24 @@ app.get('/contact',function(req,res){
 })
 
 app.post('/contact',function(req,res){
-    console.log(process.env.email)
+    // console.log(process.env.email)
+    var mailOptions = {
+      from: 'darsh10@somaiya.edu',
+      to: 'madhurima.v@somaiya.edu',
+      subject: 'Sending Email using Node.js',
+      text: 'Thank you for contacting us ' + req.body.fname +' '+ req.body.lname
+      // html: '<h1>Welcome</h1><p>Please dont text us again</p>'
+    };
+
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
         } else {
           console.log('Email sent: ' + info.response);
+          res.sendFile(__dirname+'\\views\\thankyou.html')
         }
       });
-    console.log(req.body.fname)
+    // console.log(req.body.fname)
 })
 
 
