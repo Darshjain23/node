@@ -1,15 +1,22 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import express from 'express'
-import nodemailer from 'nodemailer'
-import 'dotenv/config'
+import express, { response } from 'express';
+import nodemailer from 'nodemailer';
+import 'dotenv/config';
+import bodyParser from 'body-parser';
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express()
 
+
+
 app.use(express.static(__dirname+'\\public'))
+app.use(bodyParser.urlencoded({ extended: true }))
+
+
+
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -52,7 +59,7 @@ app.post('/contact',function(req,res){
           console.log('Email sent: ' + info.response);
         }
       });
-    // console.log("hello beautiful")
+    console.log(req.body.fname)
 })
 
 
